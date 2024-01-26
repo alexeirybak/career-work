@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getUsers } from '../../api/apiGetUsers';
 import { getSortedUsers } from '../../api/apiGetSortedUsers';
-import loader from './loader.gif';
+import loader from '../loader.gif';
 import * as S from './userSearch.styled.js';
 
 export const UserSearch = ({ users, setUsers }) => {
@@ -18,10 +18,10 @@ export const UserSearch = ({ users, setUsers }) => {
     if (dataUsers) {
       setUsers(dataUsers.items);
       setError(null);
-      setTotalCount(dataUsers.total_count)
+      setTotalCount(dataUsers.total_count);
     } else {
       if (error.response && error.response.status === 422) {
-        setError("Очень частые запросы");
+        setError('Очень частые запросы');
       } else {
         setUsers([]);
         setError(error);
@@ -43,19 +43,13 @@ export const UserSearch = ({ users, setUsers }) => {
   const handleSort = async () => {
     setIsLoading(true);
     const newSortOrder = sortOrder === 'desc' ? 'asc' : 'desc';
-    try {
-      const dataUsers = await getSortedUsers({
-        query,
-        sortOrder: newSortOrder,
-      });
+    const dataUsers = await getSortedUsers({
+      query,
+      sortOrder: newSortOrder,
+    });
 
-      setUsers(dataUsers.items);
-      setSortOrder(newSortOrder);
-      setError(null);
-    } catch (error) {
-      setUsers([]);
-      setError(error);
-    }
+    setUsers(dataUsers.items);
+    setSortOrder(newSortOrder);
     setIsLoading(false);
   };
 
@@ -89,7 +83,9 @@ export const UserSearch = ({ users, setUsers }) => {
         )}
         {users.length > 0 && (
           <>
-            <S.SortTextResults>Новых результатов: {totalCount}</S.SortTextResults>
+            <S.SortTextResults>
+              Новых результатов: {totalCount}
+            </S.SortTextResults>
             <S.SortBlock>
               <S.SortText>Сортировать по кол-ву репозиториев:</S.SortText>
               <S.SortStart onClick={handleSort}>

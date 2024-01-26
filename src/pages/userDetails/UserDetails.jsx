@@ -2,23 +2,27 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { getUserRepos } from '../../api/apiGetUserRepos';
+import loader from '../loader.gif';
 import * as S from './userDetails.styled.js';
 
 export const UserDetails = ({ users }) => {
   const { id } = useParams();
   const user = users[parseInt(id) - 1];
   const [reposCount, setReposCount] = useState(null);
+  const [isLoading, setIsLoading] = useState(null);
   const [error, setError] = useState(null);
   const query = user.repos_url;
 
   useEffect(() => {
     const fetchRepos = async () => {
+      setIsLoading(true);
       try {
         const reposData = await getUserRepos(query);
-        console.log(reposData);
         setReposCount(reposData.length);
       } catch (error) {
         setError(error.message);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchRepos();
@@ -35,8 +39,13 @@ export const UserDetails = ({ users }) => {
             <S.UserImg src={user.avatar_url} alt={user.login} />
             <S.UserText>
               <S.UserItemText>Логин: {user.login}</S.UserItemText>
+
               <S.UserItemText>
-                Репозиториев: {reposCount || error}
+                {isLoading ? (
+                  <S.Loader src={loader} />
+                ) : (
+                  `Репозиториев: ${reposCount || error}`
+                )}
               </S.UserItemText>
             </S.UserText>
             <S.UserItemLink href={user.html_url} target='_blank'>

@@ -1,9 +1,6 @@
 export const getUserRepos = async (query) => {
-  const queryToString = encodeURIComponent(`user:${query}`);
 
-  const response = await fetch(
-    `https://api.github.com/search/users?q=${queryToString}`,
-  );
+  const response = await fetch(query);
 
   if (response.status === 403) {
     throw new Error(

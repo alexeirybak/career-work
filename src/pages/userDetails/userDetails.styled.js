@@ -56,6 +56,7 @@ export const UserText = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 15px;
+  align-items: center;
 `;
 
 export const UserItemText = styled.p`
@@ -106,4 +107,8 @@ export const UserListLink = styled.div`
   a {
     color: #ddd;
   }
+`;
+
+export const Loader = styled.img`
+  width: 20px;
 `;
