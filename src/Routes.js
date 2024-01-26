@@ -1,6 +1,6 @@
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { Home } from './pages/home/Home';
-import { Contacts } from './pages/pages.styled';
+import { Contacts } from './pages/contacts/Contacts';
 import { Footer } from './components/footer/Footer';
 import { NotFound } from './pages/not-found/NotFound';
 import { UserSearch } from './pages/userSearch/UserSearch';

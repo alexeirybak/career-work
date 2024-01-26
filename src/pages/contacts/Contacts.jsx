@@ -1,4 +1,4 @@
-import * as S from '../pages.styled';
+import * as S from '../styles';
 
 export const Contacts = () => {
   return (
@@ -19,7 +19,9 @@ export const Contacts = () => {
           <S.ContentListItem>
             <S.Title2>Email</S.Title2>
             <S.Paragraph>
-              <S.Contacts href='mailto:rybak2108@gmail.com'>rybak2108@gmail.com</S.Contacts>
+              <S.Contacts href='mailto:rybak2108@gmail.com'>
+                rybak2108@gmail.com
+              </S.Contacts>
             </S.Paragraph>
           </S.ContentListItem>
         </S.ContentList>

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import * as S from '../pages.styled';
+import * as S from '../styles';
 
 export const Home = () => {
   return (

@@ -1,9 +1,9 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { getUsers } from '../../api/apiGetUsers';
 import { getSortedUsers } from '../../api/apiGetSortedUsers';
-import { Link } from 'react-router-dom';
 import loader from './loader.gif';
-import * as S from './userSearch.styled';
+import * as S from './userSearch.styled.js';
 
 export const UserSearch = ({ users, setUsers }) => {
   const [query, setQuery] = useState('');
@@ -16,25 +16,16 @@ export const UserSearch = ({ users, setUsers }) => {
     setIsLoading(true);
     const { dataUsers, error } = await getUsers(query);
     if (dataUsers) {
-      setTotalCount(dataUsers.total_count)
-      const updatedUsers = await Promise.all(
-        dataUsers.items.map(async (user) => {
-          const reposResponse = await fetch(user.repos_url);
-          const reposData = await reposResponse.json();
-          return {
-            ...user,
-            reposCount: reposData.length,
-          };
-        }),
-      );
-      setUsers(updatedUsers);
+      setUsers(dataUsers.items);
       setError(null);
       setTotalCount(dataUsers.total_count)
-      setQuery('');
-      console.log(dataUsers);
     } else {
-      setUsers([]);
-      setError(error);
+      if (error.response && error.response.status === 422) {
+        setError("Очень частые запросы");
+      } else {
+        setUsers([]);
+        setError(error);
+      }
     }
     setIsLoading(false);
   };
@@ -49,19 +40,23 @@ export const UserSearch = ({ users, setUsers }) => {
     setQuery(event.target.value);
   };
 
-  const handleSort = () => {
-    const sortedUsers = [...users];
-    sortedUsers.sort((user1, user2) => {
-      if (sortOrder === 'По возрастанию') {
-        return user1.reposCount - user2.reposCount;
-      } else {
-        return user2.reposCount - user1.reposCount;
-      }
-    });
-    setUsers(sortedUsers);
-    setSortOrder(
-      sortOrder === 'По возрастанию' ? 'По убыванию' : 'По возрастанию',
-    );
+  const handleSort = async () => {
+    setIsLoading(true);
+    const newSortOrder = sortOrder === 'desc' ? 'asc' : 'desc';
+    try {
+      const dataUsers = await getSortedUsers({
+        query,
+        sortOrder: newSortOrder,
+      });
+
+      setUsers(dataUsers.items);
+      setSortOrder(newSortOrder);
+      setError(null);
+    } catch (error) {
+      setUsers([]);
+      setError(error);
+    }
+    setIsLoading(false);
   };
 
   const handleScrollToTop = () => {
@@ -89,10 +84,12 @@ export const UserSearch = ({ users, setUsers }) => {
           </S.SearchWarning>
         </S.SearchBlock>
         {isLoading && <S.Loader src={loader} />}
+        {users.length === 0 && !isLoading && !error && (
+          <S.UserItemText>Пока нет данных</S.UserItemText>
+        )}
         {users.length > 0 && (
           <>
-          <S.SortTextResults>Новых результатов: {totalCount}</S.SortTextResults>
-            <S.SortTextResults>Результаты поиска:</S.SortTextResults>
+            <S.SortTextResults>Новых результатов: {totalCount}</S.SortTextResults>
             <S.SortBlock>
               <S.SortText>Сортировать по кол-ву репозиториев:</S.SortText>
               <S.SortStart onClick={handleSort}>
@@ -100,6 +97,7 @@ export const UserSearch = ({ users, setUsers }) => {
               </S.SortStart>
             </S.SortBlock>
             {error && <S.UserItemText>Error: {error.message}</S.UserItemText>}
+
             <S.UsersList>
               {users.map((user, index) => (
                 <S.UsersItem key={index}>
@@ -107,9 +105,6 @@ export const UserSearch = ({ users, setUsers }) => {
                     <S.UserImg src={user.avatar_url} alt={user.login} />
                     <S.UserTextBlock>
                       <S.UserItemText>Логин: {user.login}</S.UserItemText>
-                      <S.UserItemText>
-                        Репозиториев: {user.reposCount}
-                      </S.UserItemText>
                     </S.UserTextBlock>
                   </Link>
                 </S.UsersItem>
