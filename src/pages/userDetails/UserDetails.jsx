@@ -16,18 +16,21 @@ export const UserDetails = ({ users }) => {
     const fetchRepos = async () => {
       try {
         const reposData = await getUserRepos(query);
+        console.log(reposData);
         if (reposData.error) {
           setError(reposData.error);
         } else {
-          setReposCount(reposData.data.items[id - 1].repos_count);
+          const userRepos = reposData.data.items.filter(
+            (repo) => repo.owner.login === user.login,
+          );
+          setReposCount(userRepos.length);
         }
-        console.log(reposData.data.items[id - 1]);
       } catch (error) {
         setError('Нет данных');
       }
     };
     fetchRepos();
-  }, [query]);
+  }, [query, user.login]);
 
   return (
     <S.Section>

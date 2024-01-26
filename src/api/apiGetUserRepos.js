@@ -1,9 +1,11 @@
+let token = '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'
+
 export const getUserRepos = async (query) => {
   try {
     const response = await fetch(`https://api.github.com/search/users?q=${encodeURIComponent(query)}`, {
-      headers: {
-        Authorization: `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`
-      }
+      // headers: {
+      //   Authorization: `token`
+      // }
     });
 
     if (!response.ok) {
