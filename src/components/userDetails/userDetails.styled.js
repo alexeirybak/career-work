@@ -51,6 +51,13 @@ export const UserImg = styled.img`
   width: 250px;
 `;
 
+export const UserText = styled.div`
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+`;
+
 export const UserItemText = styled.p`
   font-size: 1rem;
 `;
@@ -77,8 +84,27 @@ export const UserItemLink = styled.a`
   }
 `;
 
-export const UserListLink = styled(UserItemLink)`
-margin-top: 0;
+export const UserListLink = styled.div`
+  display: flex;
+  justify-content: center;
+  background-color: var(--purple);
+  border-radius: 6px;
+  padding: 10px;
+  color: #ddd;
+  width: 250px;
+  font-size: 1rem;
+  border: 1px solid var(--text-color);
+  margin-top: 0;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  &: hover {
+    background-color: #282d93;
+    color: white;
+  }
+  @media screen and (max-width: 425px) {
+    width: 150px;
+  }
+
   a {
     color: #ddd;
   }

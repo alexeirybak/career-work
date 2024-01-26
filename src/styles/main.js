@@ -184,6 +184,6 @@ button::-moz-focus-inner {
   --text-color: #ccc;
   --title-1: #ccc;
   --id-word: #c8102e;
-  --bg-card: #202871;
+  --bg-card: #081420;
 }
 `;

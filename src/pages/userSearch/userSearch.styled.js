@@ -71,6 +71,7 @@ export const SearchWarning = styled.p`
 
 export const Loader = styled.img`
   width: 50px;
+  margin-bottom: 30px;
 `;
 
 export const SortBlock = styled(SearchBlock)`
@@ -97,6 +98,7 @@ export const UsersList = styled.ul`
   flex-wrap: wrap;
   gap: 25px;
   justify-content: center;
+  padding-bottom: 50px;
 `;
 
 export const UsersItem = styled.li`

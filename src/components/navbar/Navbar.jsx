@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { BtnMode } from '../btnMode/BtnMode';
 import settingsIcon from './settings.png';
 import logo from './logo.png';
-import * as S from './styles';
+import * as S from './navbar.styled';
 
 export const Navbar = ({ transcription, setTranscription }) => {
   const [menuVisible, setMenuVisible] = useState(false);
