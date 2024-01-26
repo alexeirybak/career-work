@@ -1,10 +1,10 @@
 export const getUserRepos = async (query) => {
-  const queryResponse = encodeURIComponent(`user:${query}`);
-
   try {
-    const response = await fetch(
-      `https://api.github.com/search/users?q=${queryResponse}`
-    );
+    const response = await fetch(`https://api.github.com/search/users?q=${encodeURIComponent(query)}`, {
+      headers: {
+        Authorization: `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`
+      }
+    });
 
     if (!response.ok) {
       throw new Error('Failed to fetch repositories');
@@ -22,7 +22,3 @@ export const getUserRepos = async (query) => {
     }
   }
 };
-
-
-
-//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

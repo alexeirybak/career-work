@@ -71,7 +71,6 @@ export const UserItemLink = styled.a`
   color: #ddd;
   width: 250px;
   font-size: 1rem;
-  border: 1px solid var(--text-color);
   margin-top: 30px;
   margin-bottom: 20px;
   box-sizing: border-box;
@@ -93,7 +92,6 @@ export const UserListLink = styled.div`
   color: #ddd;
   width: 250px;
   font-size: 1rem;
-  border: 1px solid var(--text-color);
   margin-top: 0;
   margin-bottom: 20px;
   box-sizing: border-box;

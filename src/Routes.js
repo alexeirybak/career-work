@@ -4,7 +4,7 @@ import { Contacts } from './pages/contacts/Contacts';
 import { Footer } from './components/footer/Footer';
 import { NotFound } from './pages/not-found/NotFound';
 import { UserSearch } from './pages/userSearch/UserSearch';
-import { UserDetails } from './components/userDetails/UserDetails';
+import { UserDetails } from './pages/userDetails/UserDetails';
 import { Navbar } from './components/navbar/Navbar';
 import { useState } from 'react';
 

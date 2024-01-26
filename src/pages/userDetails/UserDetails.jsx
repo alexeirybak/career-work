@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { getUserRepos } from '../../api/apiGetUserRepos';
-import * as S from './userDetails.styled';
+import * as S from './userDetails.styled.js';
 
 export const UserDetails = ({ users }) => {
   const { id } = useParams();
@@ -19,29 +19,19 @@ export const UserDetails = ({ users }) => {
         if (reposData.error) {
           setError(reposData.error);
         } else {
-          setReposCount(reposData.data.items[0].reposCount);
+          setReposCount(reposData.data.items[id - 1].repos_count);
         }
-        console.log(reposData);
+        console.log(reposData.data.items[id - 1]);
       } catch (error) {
         setError('Нет данных');
       }
-      
     };
     fetchRepos();
   }, [query]);
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  if (reposCount === null) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <S.Section>
       <S.Container>
-        {error && <S.UserItemText>{error}</S.UserItemText>}
         {user && (
           <S.UserCard>
             <S.UserCardTitle>
@@ -51,7 +41,7 @@ export const UserDetails = ({ users }) => {
             <S.UserText>
               <S.UserItemText>Логин: {user.login}</S.UserItemText>
               <S.UserItemText>
-                Репозиториев: {reposCount || 'Нет данных'}
+                Репозиториев: {reposCount || error}
               </S.UserItemText>
             </S.UserText>
             <S.UserItemLink href={user.html_url} target='_blank'>

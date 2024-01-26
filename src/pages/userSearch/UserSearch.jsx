@@ -9,7 +9,8 @@ export const UserSearch = ({ users, setUsers }) => {
   const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [sortOrder, setSortOrder] = useState('asc');
+  const [totalCount, setTotalCount] = useState(0);
+  const [sortOrder, setSortOrder] = useState('desc');
 
   const handleSearch = async () => {
     setIsLoading(true);
@@ -17,6 +18,7 @@ export const UserSearch = ({ users, setUsers }) => {
     if (dataUsers) {
       setUsers(dataUsers.items);
       setError(null);
+      setTotalCount(dataUsers.total_count)
     } else {
       if (error.response && error.response.status === 422) {
         setError("Очень частые запросы");
@@ -40,8 +42,7 @@ export const UserSearch = ({ users, setUsers }) => {
 
   const handleSort = async () => {
     setIsLoading(true);
-    const newSortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
-    console.log(query, newSortOrder);
+    const newSortOrder = sortOrder === 'desc' ? 'asc' : 'desc';
     try {
       const dataUsers = await getSortedUsers({
         query,
@@ -84,15 +85,15 @@ export const UserSearch = ({ users, setUsers }) => {
         </S.SearchBlock>
         {isLoading && <S.Loader src={loader} />}
         {users.length === 0 && !isLoading && !error && (
-          <S.UserItemText>Данные отсутствуют</S.UserItemText>
+          <S.UserItemText>Пока нет данных</S.UserItemText>
         )}
         {users.length > 0 && (
           <>
-            <S.SortTextResults>Результаты поиска:</S.SortTextResults>
+            <S.SortTextResults>Новых результатов: {totalCount}</S.SortTextResults>
             <S.SortBlock>
               <S.SortText>Сортировать по кол-ву репозиториев:</S.SortText>
               <S.SortStart onClick={handleSort}>
-                {sortOrder === 'asc' ? 'По возрастанию' : 'По убыванию'}
+                {sortOrder === 'asc' ? 'По убыванию' : 'По возрастанию'}
               </S.SortStart>
             </S.SortBlock>
             {error && <S.UserItemText>Error: {error.message}</S.UserItemText>}
