@@ -14,18 +14,19 @@ export const UserDetails = ({ users }) => {
   const query = user.repos_url;
 
   useEffect(() => {
+    
     const fetchRepos = async () => {
       setIsLoading(true);
-      try {
-        const reposData = await getUserRepos(query);
-        setReposCount(reposData.length);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setIsLoading(false);
-      }
+      const reposData = await getUserRepos(query);
+      setReposCount(reposData.length);
     };
-    fetchRepos();
+    fetchRepos()
+      .catch((error) => {
+        setError(error.message);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, [users]);
 
   return (

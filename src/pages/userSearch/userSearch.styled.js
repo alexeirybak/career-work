@@ -46,6 +46,7 @@ export const UsersInput = styled.input`
   border-radius: 6px;
   height: 40px;
   padding-left: 10px;
+  padding-right: 10px;
 `;
 
 export const UserSearchBtn = styled.button`
@@ -54,13 +55,13 @@ export const UserSearchBtn = styled.button`
   background-color: var(--purple);
   border-radius: 6px;
   padding: 10px;
-  color: ${props => props.disabled ? '#bbb' : '#fff'};
+  color: ${(props) => (props.disabled ? '#bbb' : '#fff')};
   &: hover {
     background-color: #282d93;
     color: white;
   }
   @media screen and (max-width: 425px) {
-   width: 100%;
+    width: 100%;
   }
 `;
 
@@ -90,6 +91,29 @@ export const SortTextResults = styled.div`
 
 export const SortStart = styled(UserSearchBtn)`
   width: 150px;
+  cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
+  position: relative;
+`;
+
+export const Tooltip = styled.span`
+  visibility: hidden;
+  width: 120px;
+  height: 0;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+
+  ${SortStart}:hover & {
+    visibility: visible;
+    height: auto;
+  }
 `;
 
 export const UsersList = styled.ul`
@@ -122,7 +146,7 @@ export const UserTextBlock = styled.div`
   font-size: 1rem;
   word-break: break-word;
   color: var(--text-color);
-  padding-top: 10px;
+  padding-top: 20px;
   padding-bottom: 10px;
   display: flex;
   flex-direction: column;

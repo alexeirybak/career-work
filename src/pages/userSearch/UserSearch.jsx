@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { getUsers } from '../../api/apiGetUsers';
 import { getSortedUsers } from '../../api/apiGetSortedUsers';
@@ -7,12 +7,14 @@ import * as S from './userSearch.styled.js';
 
 export const UserSearch = ({ users, setUsers }) => {
   const [query, setQuery] = useState('');
+  const inputRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [totalCount, setTotalCount] = useState(0);
   const [sortOrder, setSortOrder] = useState('desc');
 
   const handleSearch = async () => {
+    inputRef.current.value = '';
     setIsLoading(true);
     const { dataUsers, error } = await getUsers(query);
     if (dataUsers) {
@@ -20,13 +22,14 @@ export const UserSearch = ({ users, setUsers }) => {
       setError(null);
       setTotalCount(dataUsers.total_count);
     } else {
-      if (error.response && error.response.status === 422) {
-        setError('Очень частые запросы');
+      if (error.response) {
+        setError('Неизвестная ошибка');
       } else {
         setUsers([]);
         setError(error);
       }
     }
+    console.log(dataUsers);
     setIsLoading(false);
   };
 
@@ -41,6 +44,7 @@ export const UserSearch = ({ users, setUsers }) => {
   };
 
   const handleSort = async () => {
+    inputRef.current.value = '';
     setIsLoading(true);
     const newSortOrder = sortOrder === 'desc' ? 'asc' : 'desc';
     const dataUsers = await getSortedUsers({
@@ -63,8 +67,9 @@ export const UserSearch = ({ users, setUsers }) => {
         <S.SearchBlock>
           <S.SearchFinder>
             <S.UsersInput
-              type='text'
+              type='search'
               value={query}
+              ref={inputRef}
               onChange={handleInputChange}
               onKeyDown={handleKeyPress}
               placeholder='Введите логин'
@@ -88,8 +93,9 @@ export const UserSearch = ({ users, setUsers }) => {
             </S.SortTextResults>
             <S.SortBlock>
               <S.SortText>Сортировать по кол-ву репозиториев:</S.SortText>
-              <S.SortStart onClick={handleSort}>
+              <S.SortStart onClick={handleSort} disabled={!query}>
                 {sortOrder === 'asc' ? 'По убыванию' : 'По возрастанию'}
+                <S.Tooltip>{!query && 'Сделайте новый запрос'}</S.Tooltip>
               </S.SortStart>
             </S.SortBlock>
             {error && <S.UserItemText>Error: {error.message}</S.UserItemText>}
