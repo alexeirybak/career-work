@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+## Приложение GitHub-Surfer
+Предназначено для получения информации по пользователях GitHub
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+После запуска приложения вы увидите форму для поиска пользователей GitHub. Для поиска введите логин пользователя и нажмите кнопку "Поиск". Результаты будут отображены ниже формы поиска.
 
-## Available Scripts
+После этого появится возможность сортировать пользователей по убыванию или возрастанию количества репозиториев на GitHub.
 
-In the project directory, you can run:
+Для получения более подробной информации о пользователе следует кликнуть по соответствующей карточке.
+Зайдя на профиль пользователя, можно увидеть количество репозиториев пользователя и кнопку со ссылкой на его аккаунт в GitHub.
 
-### `npm start`
+Приложение в качестве настройки имеет возможность смены темы оформления.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Структура файлов (папка src):
+# api (папка с файлами):
+-- apiGetUsers -модуль для выполнения запроса к API GitHub для получения пользователей$
+-- apiGetSortedUsers.js - модуль для выполнения запроса к API GitHub для получения отсортированных пользователей$
+-- apiGetUserRepos.js - модуль для выполнения запроса к API GitHub для получения информации о количестве репозиториев у пользователя.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# components (rомпоненты):
+- App - корневой компонент;
+- BtnMode - компонент кнопки для переключения темы оформления приложения;
+- navbar - компонент верхушки сайта;
+# global - файлы: с общими стилями CSS, изображение с бэкграундом;
+# pages - папки с файлами страниц приложения:
+- home - папка главной страницы;
+- not-found - папка страницы 404;
+- contacts - папка страницы с контактами автора приложения;
+- UserSearch - папка компонента для поиска пользователей GitHub;
+- UserDetails - папка компонента для поиска информации по конкретному пользователю GitHub;
+- loader.gif - изображение загрузчика.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Зависимости
+- [@testing-library/jest-dom](https://www.npmjs.com/package/@testing-library/jest-dom) - версия 5.17.0
+- [@testing-library/react](https://www.npmjs.com/package/@testing-library/react) - версия 13.4.0
+- [@testing-library/user-event](https://www.npmjs.com/package/@testing-library/user-event) - версия 13.5.0
+- [react](https://reactjs.org/) - версия 18.2.0
+- [react-dom](https://reactjs.org/docs/react-dom.html) - версия 18.2.0
+- [react-router-dom](https://reactrouter.com/web/guides/quick-start) - версия 6.21.3
+- [react-scripts](https://www.npmjs.com/package/react-scripts) - версия 5.0.1
+- [reat](https://www.npmjs.com/package/reat) - версия 0.0.1-security
+- [styled-components](https://styled-components.com/) - версия 6.1.8
+- [web-vitals](https://www.npmjs.com/package/web-vitals) - версия 2.1.4
