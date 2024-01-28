@@ -29,7 +29,6 @@ export const UserSearch = ({ users, setUsers }) => {
         setError(error);
       }
     }
-    console.log(dataUsers);
     setIsLoading(false);
   };
 

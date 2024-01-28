@@ -103,7 +103,6 @@ export const Tooltip = styled.span`
   color: #fff;
   text-align: center;
   border-radius: 6px;
-  padding: 8px;
   position: absolute;
   z-index: 1;
   bottom: 125%;
