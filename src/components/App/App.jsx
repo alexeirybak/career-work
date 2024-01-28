@@ -6,7 +6,6 @@ function App() {
     <>
       <GlobalStyle />
       <AppRoutes />
-      <p>Hello</p>
     </>
   );
 }

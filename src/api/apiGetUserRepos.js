@@ -1,6 +1,6 @@
-export const getUserRepos = async (query) => {
+export const getUserRepos = async (queryRepos) => {
   try {
-    const response = await fetch(query);
+    const response = await fetch(queryRepos);
 
     if (response.status === 403) {
       throw new Error(
